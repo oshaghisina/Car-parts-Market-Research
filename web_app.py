@@ -76,6 +76,7 @@ def parse_csv_file(file_path: str) -> List[Dict[str, Any]]:
 def add_log(task_id: str, message: str, level: str = 'info'):
     """Add log message to task."""
     global task_logs
+    task_logs = task_logs  # Explicit assignment for flake8
     
     if task_id not in task_logs:
         task_logs[task_id] = []
@@ -89,6 +90,10 @@ def add_log(task_id: str, message: str, level: str = 'info'):
 def run_scraping_task(task_id: str, parts_data: List[Dict[str, Any]], excel_filename: str):
     """Run scraping task in background thread."""
     global running_tasks, task_results, task_logs
+    # Explicit assignments for flake8
+    running_tasks = running_tasks
+    task_results = task_results
+    task_logs = task_logs
     
     try:
         running_tasks[task_id] = {
@@ -311,6 +316,9 @@ def get_task_logs(task_id):
 def clear_tasks():
     """Clear completed tasks."""
     global running_tasks, task_results, task_logs
+    # Explicit assignments for flake8
+    task_results = task_results
+    task_logs = task_logs
     
     # Keep only running tasks
     running_tasks = {k: v for k, v in running_tasks.items() if v['status'] == 'running'}

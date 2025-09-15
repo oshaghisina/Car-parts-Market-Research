@@ -621,9 +621,6 @@ class TorobScraper:
             
             print(f"Total offers found: {len(all_offers)}")
             
-            # Cache the product details
-            self.cache.set_product_details(product_url, all_offers)
-            
             return all_offers
             
         except Exception as e:
