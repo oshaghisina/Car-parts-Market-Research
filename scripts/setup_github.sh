@@ -32,22 +32,26 @@ git commit -m "Initial commit: Torob Scraper v1.0.0
 echo "🌿 Creating main branch..."
 git branch -M main
 
-# Add remote origin (user needs to create repo first)
+# Add remote origin
 echo "🔗 Adding remote origin..."
-echo "Please create a new repository on GitHub first, then run:"
-echo "git remote add origin https://github.com/YOUR_USERNAME/torob-scraper.git"
-echo "git push -u origin main"
+git remote add origin https://github.com/oshaghisina/Car-parts-Market-Research.git
+
+# Push to GitHub
+echo "📤 Pushing to GitHub..."
+git push -u origin main
 
 echo "✅ Setup complete!"
 echo ""
+echo "🎉 Your Torob Scraper has been pushed to GitHub!"
+echo "Repository: https://github.com/oshaghisina/Car-parts-Market-Research"
+echo ""
 echo "Next steps:"
-echo "1. Create a new repository on GitHub: https://github.com/new"
-echo "2. Name it 'torob-scraper'"
-echo "3. Don't initialize with README, .gitignore, or license (we have them)"
-echo "4. Run the commands shown above to push to GitHub"
-echo "5. Set up GitHub Actions secrets:"
+echo "1. Go to https://github.com/oshaghisina/Car-parts-Market-Research"
+echo "2. Verify all files are uploaded correctly"
+echo "3. Set up GitHub Actions secrets (if needed):"
 echo "   - PYPI_API_TOKEN (for PyPI publishing)"
 echo "   - DOCKER_USERNAME (for Docker Hub)"
 echo "   - DOCKER_PASSWORD (for Docker Hub)"
+echo "4. Enable GitHub Actions in repository settings"
 echo ""
-echo "🎉 Your Torob Scraper is ready for GitHub!"
+echo "🚀 Your CI/CD pipeline is ready to go!"

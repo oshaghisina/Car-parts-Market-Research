@@ -30,11 +30,11 @@ setup(
     description="Advanced Automotive Parts Price Scraper with Web Interface",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/torob-scraper",
+    url="https://github.com/oshaghisina/Car-parts-Market-Research",
     project_urls={
-        "Bug Reports": "https://github.com/yourusername/torob-scraper/issues",
-        "Source": "https://github.com/yourusername/torob-scraper",
-        "Documentation": "https://github.com/yourusername/torob-scraper/wiki",
+        "Bug Reports": "https://github.com/oshaghisina/Car-parts-Market-Research/issues",
+        "Source": "https://github.com/oshaghisina/Car-parts-Market-Research",
+        "Documentation": "https://github.com/oshaghisina/Car-parts-Market-Research/wiki",
     },
     packages=find_packages(),
     classifiers=[

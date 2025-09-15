@@ -1,6 +1,6 @@
 # 🚗 Torob Scraper
 
-[![CI/CD Pipeline](https://github.com/yourusername/torob-scraper/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/yourusername/torob-scraper/actions)
+[![CI/CD Pipeline](https://github.com/oshaghisina/Car-parts-Market-Research/workflows/CI/CD%20Pipeline/badge.svg)](https://github.com/oshaghisina/Car-parts-Market-Research/actions)
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
@@ -49,7 +49,7 @@ A powerful, production-ready web scraper for extracting automotive parts prices 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/torob-scraper.git
+git clone https://github.com/oshaghisina/Car-parts-Market-Research.git
 cd torob-scraper
 
 # Run with Docker Compose
@@ -63,7 +63,7 @@ open http://localhost:5001
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/torob-scraper.git
+git clone https://github.com/oshaghisina/Car-parts-Market-Research.git
 cd torob-scraper
 
 # Create virtual environment
@@ -281,7 +281,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ```bash
 # Fork and clone the repository
-git clone https://github.com/yourusername/torob-scraper.git
+git clone https://github.com/oshaghisina/Car-parts-Market-Research.git
 cd torob-scraper
 
 # Create development environment
@@ -333,9 +333,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Documentation**: [Wiki](https://github.com/yourusername/torob-scraper/wiki)
-- **Issues**: [GitHub Issues](https://github.com/yourusername/torob-scraper/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/torob-scraper/discussions)
+- **Documentation**: [Wiki](https://github.com/oshaghisina/Car-parts-Market-Research/wiki)
+- **Issues**: [GitHub Issues](https://github.com/oshaghisina/Car-parts-Market-Research/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/oshaghisina/Car-parts-Market-Research/discussions)
 - **Email**: contact@torobscraper.com
 
 ## 🗺️ Roadmap
@@ -350,6 +350,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ Star this repository if you find it useful!**
 
-**🐛 Found a bug? Please report it in the [Issues](https://github.com/yourusername/torob-scraper/issues) section.**
+**🐛 Found a bug? Please report it in the [Issues](https://github.com/oshaghisina/Car-parts-Market-Research/issues) section.**
 
-**💡 Have an idea? Start a [Discussion](https://github.com/yourusername/torob-scraper/discussions)!**
+**💡 Have an idea? Start a [Discussion](https://github.com/oshaghisina/Car-parts-Market-Research/discussions)!**
