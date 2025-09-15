@@ -84,7 +84,7 @@ def clean_whitespace(text: str) -> str:
     return text
 
 
-def extract_price(text: str) -> Optional[int]:
+def extract_price(text: str) -> int:
     """
     Extract price from text and return as integer (in smallest currency unit).
 
@@ -92,10 +92,10 @@ def extract_price(text: str) -> Optional[int]:
         text: Text containing price information
 
     Returns:
-        Price as integer or None if no valid price found
+        Price as integer or 0 if no valid price found
     """
     if not text:
-        return None
+        return 0
 
     # Normalize digits first
     text = normalize_digits(text)
@@ -128,7 +128,7 @@ def extract_price(text: str) -> Optional[int]:
                 continue
 
     if not potential_prices:
-        return None
+        return 0
 
     # Return the largest price found (assuming it's the main price)
     return max(potential_prices)
