@@ -122,6 +122,8 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     needs: test
+    # Temporarily disabled until Docker Hub secrets are configured
+    if: false
     
     steps:
     - uses: actions/checkout@v4
@@ -149,7 +151,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [test, build, security]
-    if: github.ref == 'refs/heads/main'
+    # Temporarily disabled until Docker Hub secrets are configured
+    if: false
     
     steps:
     - uses: actions/checkout@v4
