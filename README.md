@@ -10,6 +10,8 @@
 
 A powerful, production-ready web scraper for extracting automotive parts prices from Torob.com with advanced features including caching, parallel processing, real-time progress tracking, and a beautiful web interface.
 
+<!-- CI/CD Test: Triggering workflow for testing -->
+
 ## ✨ Features
 
 ### 🔍 **Advanced Scraping**
