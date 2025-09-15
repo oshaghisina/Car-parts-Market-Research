@@ -8,13 +8,14 @@ import time
 import json
 from pathlib import Path
 
+
 def test_web_interface():
     """Test the web interface endpoints."""
     print("🔧 Testing Web Interface")
     print("=" * 50)
-    
+
     base_url = "http://localhost:8080"
-    
+
     try:
         # Test main page
         print("📱 Testing main page...")
@@ -24,7 +25,7 @@ def test_web_interface():
         else:
             print(f"❌ Main page error: {response.status_code}")
             return False
-        
+
         # Test configuration API
         print("⚙️  Testing configuration API...")
         response = requests.get(f"{base_url}/api/config")
@@ -36,7 +37,7 @@ def test_web_interface():
         else:
             print(f"❌ Configuration API error: {response.status_code}")
             return False
-        
+
         # Test tasks API
         print("📋 Testing tasks API...")
         response = requests.get(f"{base_url}/api/tasks")
@@ -46,17 +47,18 @@ def test_web_interface():
         else:
             print(f"❌ Tasks API error: {response.status_code}")
             return False
-        
+
         print("\n🎉 Web interface is working correctly!")
         print("📱 Access at: http://localhost:5000")
         return True
-        
+
     except requests.exceptions.ConnectionError:
         print("❌ Web server not running. Start with: python3 web_app.py")
         return False
     except Exception as e:
         print(f"❌ Error testing web interface: {e}")
         return False
+
 
 if __name__ == "__main__":
     test_web_interface()
