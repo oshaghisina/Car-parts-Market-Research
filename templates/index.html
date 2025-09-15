@@ -1,0 +1,573 @@
+{% extends "base.html" %}
+
+{% block title %}Torob Scraper - Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 text-primary">
+                <i class="fas fa-car"></i> Torob Scraper
+            </h1>
+            <p class="lead text-muted">
+                Advanced Automotive Parts Price Scraper with Caching & Parallel Processing
+            </p>
+        </div>
+
+        <!-- Main Form -->
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-search"></i> Start Scraping
+                </h4>
+            </div>
+            <div class="card-body">
+                <!-- Upload Section -->
+                <div class="mb-4">
+                    <h5><i class="fas fa-upload"></i> Upload Parts File (Optional)</h5>
+                    <p class="text-muted">Upload a CSV file with parts data, or enter parts manually below.</p>
+                    
+                    <div class="input-group">
+                        <input type="file" class="form-control" id="fileInput" accept=".csv,.xlsx,.xls">
+                        <button class="btn btn-outline-primary" type="button" onclick="uploadFile()">
+                            <i class="fas fa-upload"></i> Upload
+                        </button>
+                    </div>
+                    
+                    <div id="uploadStatus" class="mt-2"></div>
+                </div>
+
+                <!-- Manual Entry Section -->
+                <div class="mb-4">
+                    <h5><i class="fas fa-edit"></i> Manual Entry</h5>
+                    <p class="text-muted">Enter parts information manually.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="excelFilename" class="form-label">Excel Filename</label>
+                            <input type="text" class="form-control" id="excelFilename" 
+                                   placeholder="torob_prices.xlsx" value="torob_prices.xlsx">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="partCount" class="form-label">Number of Parts</label>
+                            <select class="form-select" id="partCount" onchange="updatePartInputs()">
+                                <option value="1">1 Part</option>
+                                <option value="2">2 Parts</option>
+                                <option value="3">3 Parts</option>
+                                <option value="4">4 Parts</option>
+                                <option value="5">5 Parts</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parts Input -->
+                <div id="partsInput" class="mb-4">
+                    <!-- Dynamic parts input will be generated here -->
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-outline-secondary" onclick="clearForm()">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                    <button class="btn btn-primary btn-lg" onclick="startScraping()">
+                        <i class="fas fa-play"></i> Start Scraping
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div id="progressSection" class="card shadow-lg mt-4" style="display: none;">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-tasks"></i> Progress
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="progress mb-3" style="height: 25px;">
+                    <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" style="width: 0%">
+                        <span id="progressText">0%</span>
+                    </div>
+                </div>
+                <div id="progressMessage" class="text-muted">Initializing...</div>
+                <div id="progressDetails" class="mt-2"></div>
+            </div>
+        </div>
+
+        <!-- Live Log Section -->
+        <div id="logSection" class="card shadow-lg mt-4" style="display: none;">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">
+                    <i class="fas fa-terminal"></i> Live Scraping Log
+                </h4>
+                <div>
+                    <button class="btn btn-sm btn-outline-light" onclick="clearLog()">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                    <button class="btn btn-sm btn-outline-light" onclick="toggleAutoScroll()">
+                        <i class="fas fa-arrow-down" id="autoScrollIcon"></i> Auto-scroll
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div id="logContainer" class="bg-dark text-light p-3" style="height: 400px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.9rem;">
+                    <div class="text-muted">Waiting for scraping to start...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="card shadow-lg mt-4" style="display: none;">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-check-circle"></i> Results
+                </h4>
+            </div>
+            <div class="card-body">
+                <div id="resultsContent">
+                    <!-- Results will be displayed here -->
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                    <button class="btn btn-outline-primary" onclick="downloadResults()">
+                        <i class="fas fa-download"></i> Download Excel
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="startNewScraping()">
+                        <i class="fas fa-plus"></i> New Scraping
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-bolt fa-3x text-warning mb-3"></i>
+                        <h5>Fast & Efficient</h5>
+                        <p class="text-muted">Parallel processing and caching for maximum speed.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+                        <h5>Rich Analytics</h5>
+                        <p class="text-muted">Comprehensive Excel reports with statistics and formatting.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-shield-alt fa-3x text-info mb-3"></i>
+                        <h5>Reliable & Safe</h5>
+                        <p class="text-muted">Respectful scraping with rate limiting and error handling.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Configuration Modal -->
+<div class="modal fade" id="configModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-cog"></i> Configuration
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="configContent">
+                    <!-- Configuration will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tasks Modal -->
+<div class="modal fade" id="tasksModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-tasks"></i> Task History
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="tasksContent">
+                    <!-- Tasks will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Initialize parts inputs
+updatePartInputs();
+
+// Global variables
+let currentTaskId = null;
+let progressInterval = null;
+
+// Update parts inputs based on count
+function updatePartInputs() {
+    const count = parseInt(document.getElementById('partCount').value);
+    const container = document.getElementById('partsInput');
+    
+    container.innerHTML = '';
+    
+    for (let i = 1; i <= count; i++) {
+        const partDiv = document.createElement('div');
+        partDiv.className = 'card mb-3';
+        partDiv.innerHTML = `
+            <div class="card-header">
+                <h6 class="mb-0">Part ${i}</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Part Name *</label>
+                        <input type="text" class="form-control" id="partName${i}" 
+                               placeholder="e.g., چراغ سمت راست تیگو ۸ پرو" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Part Code</label>
+                        <input type="text" class="form-control" id="partCode${i}" 
+                               placeholder="e.g., TIGGO8-HEADLIGHT-RH">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <label class="form-label">Keywords</label>
+                        <input type="text" class="form-control" id="keywords${i}" 
+                               placeholder="Auto-generated if empty">
+                    </div>
+                </div>
+            </div>
+        `;
+        container.appendChild(partDiv);
+    }
+}
+
+// Upload file
+function uploadFile() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        showAlert('Please select a file', 'warning');
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showAlert(`File uploaded successfully! Found ${data.parts_count} parts.`, 'success');
+            loadPartsFromFile(data.parts_data);
+        } else {
+            showAlert(data.error, 'danger');
+        }
+    })
+    .catch(error => {
+        showAlert('Error uploading file: ' + error.message, 'danger');
+    });
+}
+
+// Load parts from uploaded file
+function loadPartsFromFile(partsData) {
+    const count = partsData.length;
+    document.getElementById('partCount').value = count;
+    updatePartInputs();
+    
+    partsData.forEach((part, index) => {
+        const i = index + 1;
+        document.getElementById(`partName${i}`).value = part.part_name || '';
+        document.getElementById(`partCode${i}`).value = part.part_code || '';
+        document.getElementById(`keywords${i}`).value = part.keywords || '';
+    });
+}
+
+// Start scraping
+function startScraping() {
+    const partsData = getPartsData();
+    
+    if (partsData.length === 0) {
+        showAlert('Please enter at least one part', 'warning');
+        return;
+    }
+    
+    const excelFilename = document.getElementById('excelFilename').value || 'torob_prices.xlsx';
+    
+    const data = {
+        parts_data: partsData,
+        excel_filename: excelFilename
+    };
+    
+    fetch('/api/start_scraping', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            currentTaskId = data.task_id;
+            showProgress();
+            startProgressTracking();
+        } else {
+            showAlert(data.error, 'danger');
+        }
+    })
+    .catch(error => {
+        showAlert('Error starting scraping: ' + error.message, 'danger');
+    });
+}
+
+// Get parts data from form
+function getPartsData() {
+    const count = parseInt(document.getElementById('partCount').value);
+    const partsData = [];
+    
+    for (let i = 1; i <= count; i++) {
+        const partName = document.getElementById(`partName${i}`).value.trim();
+        const partCode = document.getElementById(`partCode${i}`).value.trim();
+        const keywords = document.getElementById(`keywords${i}`).value.trim();
+        
+        if (partName) {
+            partsData.push({
+                part_id: `part_${i}_${Date.now()}`,
+                part_name: partName,
+                part_code: partCode,
+                keywords: keywords || `${partName} automotive part`
+            });
+        }
+    }
+    
+    return partsData;
+}
+
+// Show progress section
+function showProgress() {
+    document.getElementById('progressSection').style.display = 'block';
+    document.getElementById('resultsSection').style.display = 'none';
+}
+
+// Start progress tracking
+function startProgressTracking() {
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
+    
+    progressInterval = setInterval(() => {
+        if (currentTaskId) {
+            fetch(`/api/task_status/${currentTaskId}`)
+            .then(response => response.json())
+            .then(data => {
+                updateProgress(data);
+                
+                if (data.status === 'completed' || data.status === 'failed') {
+                    clearInterval(progressInterval);
+                    showResults(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching progress:', error);
+            });
+        }
+    }, 1000);
+}
+
+// Update progress display
+function updateProgress(data) {
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const progressMessage = document.getElementById('progressMessage');
+    
+    if (data.progress !== undefined) {
+        progressBar.style.width = data.progress + '%';
+        progressText.textContent = data.progress + '%';
+    }
+    
+    if (data.message) {
+        progressMessage.textContent = data.message;
+    }
+    
+    // Update progress details
+    const details = [];
+    if (data.completed_tasks !== undefined) {
+        details.push(`Completed: ${data.completed_tasks}`);
+    }
+    if (data.failed_tasks !== undefined) {
+        details.push(`Failed: ${data.failed_tasks}`);
+    }
+    if (data.total_tasks !== undefined) {
+        details.push(`Total: ${data.total_tasks}`);
+    }
+    
+    document.getElementById('progressDetails').textContent = details.join(' | ');
+}
+
+// Show results
+function showResults(data) {
+    document.getElementById('progressSection').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'block';
+    
+    const resultsContent = document.getElementById('resultsContent');
+    
+    if (data.status === 'completed') {
+        resultsContent.innerHTML = `
+            <div class="alert alert-success">
+                <h5><i class="fas fa-check-circle"></i> Scraping Completed Successfully!</h5>
+                <p>Your results are ready for download.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Statistics</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Parts Processed:</strong> ${data.stats?.parts_processed || 'N/A'}</li>
+                        <li><strong>Search Results:</strong> ${data.stats?.search_results || 'N/A'}</li>
+                        <li><strong>Final Offers:</strong> ${data.stats?.final_offers || 'N/A'}</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>File Information</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Excel File:</strong> ${data.excel_file || 'N/A'}</li>
+                        <li><strong>Status:</strong> <span class="badge bg-success">Ready</span></li>
+                    </ul>
+                </div>
+            </div>
+        `;
+    } else {
+        resultsContent.innerHTML = `
+            <div class="alert alert-danger">
+                <h5><i class="fas fa-exclamation-triangle"></i> Scraping Failed</h5>
+                <p>${data.error || 'An unknown error occurred'}</p>
+            </div>
+        `;
+    }
+}
+
+// Download results
+function downloadResults() {
+    if (currentTaskId) {
+        window.open(`/api/download/${currentTaskId}`, '_blank');
+    }
+}
+
+// Start new scraping
+function startNewScraping() {
+    document.getElementById('progressSection').style.display = 'none';
+    document.getElementById('resultsSection').style.display = 'none';
+    clearForm();
+}
+
+// Clear form
+function clearForm() {
+    document.getElementById('excelFilename').value = 'torob_prices.xlsx';
+    document.getElementById('partCount').value = '1';
+    updatePartInputs();
+    document.getElementById('fileInput').value = '';
+    currentTaskId = null;
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
+}
+
+// Show alert
+function showAlert(message, type) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.getElementById('uploadStatus').innerHTML = '';
+    document.getElementById('uploadStatus').appendChild(alertDiv);
+}
+
+// Show configuration
+function showConfig() {
+    fetch('/api/config')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('configContent').innerHTML = `
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Scraping Settings</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Base URL:</strong> ${data.scraping?.base_url || 'N/A'}</li>
+                        <li><strong>Delay Range:</strong> ${data.scraping?.delay_range?.min || 'N/A'}-${data.scraping?.delay_range?.max || 'N/A'}s</li>
+                        <li><strong>Max Scroll Attempts:</strong> ${data.scraping?.scroll?.max_attempts || 'N/A'}</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Performance Settings</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Caching:</strong> ${data.caching?.enabled ? 'Enabled' : 'Disabled'}</li>
+                        <li><strong>Cache TTL:</strong> ${data.caching?.ttl_hours || 'N/A'} hours</li>
+                        <li><strong>Parallel Processing:</strong> ${data.performance?.parallel?.enabled ? 'Enabled' : 'Disabled'}</li>
+                        <li><strong>Max Workers:</strong> ${data.performance?.parallel?.max_workers || 'N/A'}</li>
+                    </ul>
+                </div>
+            </div>
+        `;
+        
+        new bootstrap.Modal(document.getElementById('configModal')).show();
+    })
+    .catch(error => {
+        showAlert('Error loading configuration: ' + error.message, 'danger');
+    });
+}
+
+// Show tasks
+function showTasks() {
+    fetch('/api/tasks')
+    .then(response => response.json())
+    .then(data => {
+        const tasksHtml = Object.keys(data).length > 0 ? 
+            Object.entries(data).map(([id, task]) => `
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6>Task ${id.substring(0, 8)}...</h6>
+                        <p class="mb-1"><strong>Status:</strong> <span class="badge bg-${task.status === 'completed' ? 'success' : task.status === 'failed' ? 'danger' : 'warning'}">${task.status}</span></p>
+                        <p class="mb-1"><strong>Message:</strong> ${task.message || 'N/A'}</p>
+                        <p class="mb-0"><strong>Start Time:</strong> ${task.start_time || 'N/A'}</p>
+                    </div>
+                </div>
+            `).join('') : 
+            '<p class="text-muted">No tasks found.</p>';
+        
+        document.getElementById('tasksContent').innerHTML = tasksHtml;
+        new bootstrap.Modal(document.getElementById('tasksModal')).show();
+    })
+    .catch(error => {
+        showAlert('Error loading tasks: ' + error.message, 'danger');
+    });
+}
+</script>
+{% endblock %}

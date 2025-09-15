@@ -1,0 +1,152 @@
+# Torob Scraper Configuration
+# This file contains all configurable settings for the scraper
+
+# Scraping Settings
+scraping:
+  # Base URL for Torob
+  base_url: "https://torob.com"
+  
+  # Rate limiting settings
+  delay_range:
+    min: 1.5  # Minimum delay between requests (seconds)
+    max: 3.0  # Maximum delay between requests (seconds)
+  
+  # Scroll settings for search pages
+  scroll:
+    max_attempts: 3  # Maximum scroll attempts
+    scroll_delay: 2.0  # Delay between scrolls (seconds)
+    scroll_pause: 1.0  # Pause after each scroll (seconds)
+  
+  # Timeout settings
+  timeouts:
+    page_load: 30  # Page load timeout (seconds)
+    element_wait: 10  # Element wait timeout (seconds)
+    network_idle: 5  # Network idle timeout (seconds)
+
+# Data Processing Settings
+processing:
+  # Price normalization
+  price:
+    default_currency: "toman"  # Default currency for prices
+    convert_rial_to_toman: true  # Convert Rial to Toman
+  
+  # Text processing
+  text:
+    normalize_digits: true  # Convert Persian/Arabic digits to Latin
+    clean_whitespace: true  # Clean extra whitespace
+  
+  # Deduplication
+  dedupe:
+    enabled: true  # Enable offer deduplication
+    key_fields: ["seller_name_norm", "part_key", "title_norm"]  # Fields to use for deduplication
+
+# Filtering Settings
+filtering:
+  # Relevance scoring
+  relevance:
+    min_score: 0.0  # Minimum relevance score to include
+    max_results: 50  # Maximum results to process
+  
+  # Negative keywords (Persian)
+  negative_keywords:
+    - "عقب"
+    - "مه‌شکن"
+    - "راهنما"
+    - "روز روشن"
+    - "DRL"
+    - "daylight"
+    - "indicator"
+    - "rear"
+    - "tail"
+    - "fog"
+
+# Export Settings
+export:
+  # Excel settings
+  excel:
+    filename_template: "{part_name}.xlsx"  # Template for filename
+    sheets:
+      offers_raw: "offers_raw"
+      sellers_summary: "sellers_summary"
+      part_summary: "part_summary"
+    
+    # Formatting
+    formatting:
+      freeze_headers: true  # Freeze first row
+      add_filters: true  # Add auto-filters
+      conditional_formatting: true  # Add conditional formatting for outliers
+      url_columns: true  # Format URL columns as hyperlinks
+      
+      # Column widths
+      column_widths:
+        title_raw: 50
+        product_url: 50
+        seller_url: 50
+        validation_urls: 60
+        sample_urls: 60
+
+# Logging Settings
+logging:
+  level: "INFO"  # Logging level (DEBUG, INFO, WARNING, ERROR)
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+  # Console output
+  console:
+    enabled: true
+    show_progress: true  # Show progress indicators
+    show_stats: true  # Show statistics
+  
+  # File output
+  file:
+    enabled: false  # Enable file logging
+    filename: "torob_scraper.log"
+    max_size: "10MB"  # Maximum log file size
+    backup_count: 5  # Number of backup files
+
+# Browser Settings
+browser:
+  headless: true  # Run browser in headless mode
+  viewport:
+    width: 1920
+    height: 1080
+  
+  # User agent
+  user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+  
+  # Additional options
+  options:
+    disable_images: true  # Disable image loading for faster scraping
+    disable_css: false  # Keep CSS for proper rendering
+    disable_javascript: false  # Keep JavaScript for dynamic content
+
+# Caching Settings
+caching:
+  enabled: true  # Enable caching system
+  ttl_hours: 24  # Cache time-to-live in hours
+  max_size_mb: 100  # Maximum cache size in MB
+  cache_dir: "cache"  # Cache directory
+  
+  # Cache types
+  types:
+    search: true  # Cache search results
+    product: true  # Cache product details
+    seller: false  # Cache seller information (optional)
+
+# Performance Settings
+performance:
+  # Parallel processing
+  parallel:
+    enabled: true  # Enable parallel processing
+    max_workers: 3  # Maximum concurrent workers
+    batch_size: 5  # Process parts in batches
+    
+  # Memory optimization
+  memory:
+    max_memory_mb: 512  # Maximum memory usage
+    cleanup_interval: 100  # Cleanup every N operations
+    
+  # Progress tracking
+  progress:
+    enabled: true  # Show progress indicators
+    update_interval: 1  # Update every N seconds
+    show_eta: true  # Show estimated time remaining
