@@ -4,10 +4,10 @@ Handles offer deduplication and seller name standardization.
 """
 
 import hashlib
-from typing import List, Dict, Any, Set, Tuple
 from collections import defaultdict
+from typing import Any, Dict, List, Set, Tuple
 
-from utils.text import normalize_seller_name, normalize_part_title, clean_whitespace
+from utils.text import clean_whitespace, normalize_part_title, normalize_seller_name
 
 
 class OfferDeduplicator:

@@ -3,11 +3,12 @@ Tests for utility functions.
 """
 
 import pytest
+
 from utils.text import (
-    normalize_digits,
     clean_whitespace,
-    extract_price,
     detect_currency_unit,
+    extract_price,
+    normalize_digits,
 )
 
 

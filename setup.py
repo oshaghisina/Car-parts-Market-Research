@@ -3,8 +3,9 @@
 Setup script for Torob Scraper package.
 """
 
-from setuptools import setup, find_packages
 import os
+
+from setuptools import find_packages, setup
 
 
 # Read the README file

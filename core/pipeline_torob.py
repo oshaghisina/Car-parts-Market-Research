@@ -6,11 +6,11 @@ Handles search page scraping, product page drill-down, and data processing.
 import asyncio
 import time
 from datetime import datetime
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
 
 from adapters.torob_search import TorobScraper
-from core.filtering import RelevanceFilter
 from core.exporter_excel import ExcelExporter
+from core.filtering import RelevanceFilter
 from core.parallel_processor import get_parallel_processor
 from core.progress_tracker import get_progress_tracker
 from utils.text import (

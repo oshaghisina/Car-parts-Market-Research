@@ -3,10 +3,11 @@
 Test script for the web interface.
 """
 
-import requests
-import time
 import json
+import time
 from pathlib import Path
+
+import requests
 
 
 def test_web_interface():

@@ -9,9 +9,9 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from core.pipeline_torob import TorobTwoStagePipeline
 from core.cli_enhancer import get_cli_enhancer
 from core.config_manager import get_config
+from core.pipeline_torob import TorobTwoStagePipeline
 
 
 def get_user_input():

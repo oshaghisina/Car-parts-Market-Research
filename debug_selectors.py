@@ -5,6 +5,7 @@ Debug script to check CSS selectors and HTML structure.
 
 import asyncio
 from urllib.parse import quote
+
 from adapters.torob_search import TorobScraper
 
 

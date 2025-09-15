@@ -4,11 +4,11 @@ Progress Tracker for Torob Scraper.
 Provides rich progress indicators with real-time updates and ETA.
 """
 
-import time
-import threading
-from datetime import datetime, timedelta
-from typing import Dict, Any, Optional, List
 import sys
+import threading
+import time
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional
 
 from core.config_manager import get_config
 

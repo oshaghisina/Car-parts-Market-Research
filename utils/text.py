@@ -5,7 +5,6 @@ Text utilities for normalizing Persian/Arabic text and extracting prices.
 import re
 from typing import Optional, Union
 
-
 # Persian and Arabic digit mappings
 PERSIAN_DIGITS = {
     "۰": "0",

@@ -8,11 +8,11 @@ import csv
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
 
 from adapters.torob_search import TorobScraper
-from core.entity_normalizer import PartNormalizer
 from core.dedupe import OfferDeduplicator
+from core.entity_normalizer import PartNormalizer
 from core.exporter import ExcelExporter
 from utils.text import convert_rial_to_toman, detect_currency_unit
 

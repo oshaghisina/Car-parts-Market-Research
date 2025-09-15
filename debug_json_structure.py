@@ -4,8 +4,9 @@ Debug script to analyze the JSON structure in Torob's HTML.
 """
 
 import asyncio
-import re
 import json
+import re
+
 from adapters.torob_search import TorobScraper
 
 

@@ -5,6 +5,7 @@ Generates normalized keys: BODY:<PART_TYPE>:<SIDE/VARIANT>:<TRIM>
 
 import re
 from typing import Dict, Optional, Tuple
+
 from utils.text import clean_whitespace, normalize_digits
 
 

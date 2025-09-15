@@ -4,10 +4,11 @@ Configuration Manager for Torob Scraper.
 Handles loading and managing configuration settings from YAML files.
 """
 
-import yaml
 import os
-from typing import Dict, Any, Optional
 from pathlib import Path
+from typing import Any, Dict, Optional
+
+import yaml
 
 
 class ConfigManager:

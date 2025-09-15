@@ -4,9 +4,10 @@ Handles negative filtering and relevance scoring for search results.
 """
 
 import re
-from typing import Dict, List, Any, Tuple
-from utils.text import clean_whitespace, normalize_digits
+from typing import Any, Dict, List, Tuple
+
 from core.config_manager import get_config
+from utils.text import clean_whitespace, normalize_digits
 
 
 class RelevanceFilter:

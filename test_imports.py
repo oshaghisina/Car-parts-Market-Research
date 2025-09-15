@@ -58,6 +58,7 @@ def test_url_extraction():
 
     try:
         import asyncio
+
         from adapters.torob_search import TorobScraper
 
         async def test_scraper():

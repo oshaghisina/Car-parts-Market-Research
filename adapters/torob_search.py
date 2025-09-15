@@ -7,20 +7,21 @@ import asyncio
 import random
 import time
 from datetime import datetime
-from typing import List, Dict, Optional, Any
+from typing import Any, Dict, List, Optional
 from urllib.parse import quote
 
-from playwright.async_api import async_playwright, Page, Browser, BrowserContext
-from utils.text import (
-    extract_price,
-    detect_currency_unit,
-    normalize_seller_name,
-    normalize_part_title,
-    clean_whitespace,
-    normalize_digits,
-)
-from core.config_manager import get_config
+from playwright.async_api import Browser, BrowserContext, Page, async_playwright
+
 from core.cache_manager import get_cache
+from core.config_manager import get_config
+from utils.text import (
+    clean_whitespace,
+    detect_currency_unit,
+    extract_price,
+    normalize_digits,
+    normalize_part_title,
+    normalize_seller_name,
+)
 
 
 class TorobScraper:
