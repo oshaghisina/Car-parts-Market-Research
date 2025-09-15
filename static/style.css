@@ -322,6 +322,51 @@ footer p {
     background: #777;
 }
 
+/* Font Awesome fallback styles */
+.fa-fallback .fas,
+.fa-fallback .far,
+.fa-fallback .fab,
+.fa-fallback .fal,
+.fa-fallback .fad {
+    font-family: inherit !important;
+    font-size: 1.2em;
+    margin-right: 0.3em;
+}
+
+/* Ensure emoji fallbacks are visible */
+.fa-fallback .fa-car::before,
+.fa-fallback .fa-home::before,
+.fa-fallback .fa-cog::before,
+.fa-fallback .fa-tasks::before,
+.fa-fallback .fa-code::before,
+.fa-fallback .fa-upload::before,
+.fa-fallback .fa-download::before,
+.fa-fallback .fa-play::before,
+.fa-fallback .fa-stop::before,
+.fa-fallback .fa-spinner::before,
+.fa-fallback .fa-check::before,
+.fa-fallback .fa-times::before,
+.fa-fallback .fa-exclamation::before,
+.fa-fallback .fa-info::before,
+.fa-fallback .fa-terminal::before,
+.fa-fallback .fa-trash::before,
+.fa-fallback .fa-arrow-down::before,
+.fa-fallback .fa-pause::before,
+.fa-fallback .fa-search::before,
+.fa-fallback .fa-edit::before,
+.fa-fallback .fa-check-circle::before,
+.fa-fallback .fa-plus::before,
+.fa-fallback .fa-bolt::before,
+.fa-fallback .fa-chart-line::before,
+.fa-fallback .fa-shield-alt::before,
+.fa-fallback .fa-exclamation-triangle::before {
+    display: inline-block !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    line-height: 1 !important;
+}
+
 /* Print Styles */
 @media print {
     .navbar, .btn, footer {

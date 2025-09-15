@@ -8,7 +8,40 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Fallback for Font Awesome -->
+    <style>
+        .fas, .far, .fab, .fal, .fad {
+            font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 6 Pro" !important;
+        }
+        /* Fallback icons if Font Awesome doesn't load */
+        .fa-car::before { content: "🚗"; }
+        .fa-home::before { content: "🏠"; }
+        .fa-cog::before { content: "⚙️"; }
+        .fa-tasks::before { content: "📋"; }
+        .fa-code::before { content: "💻"; }
+        .fa-upload::before { content: "📤"; }
+        .fa-download::before { content: "📥"; }
+        .fa-play::before { content: "▶️"; }
+        .fa-stop::before { content: "⏹️"; }
+        .fa-spinner::before { content: "⏳"; }
+        .fa-check::before { content: "✅"; }
+        .fa-times::before { content: "❌"; }
+        .fa-exclamation::before { content: "⚠️"; }
+        .fa-info::before { content: "ℹ️"; }
+        .fa-terminal::before { content: "💻"; }
+        .fa-trash::before { content: "🗑️"; }
+        .fa-arrow-down::before { content: "⬇️"; }
+        .fa-pause::before { content: "⏸️"; }
+        .fa-search::before { content: "🔍"; }
+        .fa-edit::before { content: "✏️"; }
+        .fa-check-circle::before { content: "✅"; }
+        .fa-plus::before { content: "➕"; }
+        .fa-bolt::before { content: "⚡"; }
+        .fa-chart-line::before { content: "📈"; }
+        .fa-shield-alt::before { content: "🛡️"; }
+        .fa-exclamation-triangle::before { content: "⚠️"; }
+    </style>
     <!-- Custom CSS -->
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
 </head>

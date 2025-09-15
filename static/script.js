@@ -10,6 +10,9 @@ let autoScroll = true;
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Torob Scraper Web Interface initialized');
     
+    // Check if Font Awesome loaded properly
+    checkIconLoading();
+    
     // Initialize parts inputs
     updatePartInputs();
     
@@ -658,6 +661,34 @@ function formatDuration(seconds) {
     } else {
         return `${secs}s`;
     }
+}
+
+// Check if Font Awesome icons loaded properly
+function checkIconLoading() {
+    // Wait a bit for Font Awesome to load
+    setTimeout(function() {
+        // Check if Font Awesome is loaded by testing a common icon
+        const testIcon = document.createElement('i');
+        testIcon.className = 'fas fa-car';
+        testIcon.style.visibility = 'hidden';
+        testIcon.style.position = 'absolute';
+        document.body.appendChild(testIcon);
+        
+        // Check if the icon has the proper font family
+        const computedStyle = window.getComputedStyle(testIcon);
+        const fontFamily = computedStyle.fontFamily;
+        
+        if (!fontFamily.includes('Font Awesome')) {
+            console.warn('Font Awesome not loaded properly, using emoji fallbacks');
+            // Add a class to indicate fallback mode
+            document.body.classList.add('fa-fallback');
+        } else {
+            console.log('Font Awesome loaded successfully');
+        }
+        
+        // Clean up test element
+        document.body.removeChild(testIcon);
+    }, 1000);
 }
 
 // Export functions for global access
